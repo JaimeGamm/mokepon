@@ -31,6 +31,9 @@ let botonTierra
 let indexAtaqueJuagador
 let indexAtaqueEnemigo
 
+let victoriasJugador = 0
+let victoriasEnemigo = 0
+
 let contadorVidasEnemigo = 3
 let contadorVidasJugador =3
 
@@ -239,31 +242,39 @@ function combate(){
             indexAmbosOponetes(index,index)
             crearMensaje("EMPATE")
         }else if(ataqueJugador[index] === "TIERRA" && ataqueEnemigo[index]=== "FUEGO"){
+            victoriasJugador ++
             indexAmbosOponetes(index,index)
             crearMensaje("GANASTE")
+            spanVidasJugador.innerHTML= victoriasJugador
         }else if(ataqueJugador[index] === "FUEGO" && ataqueEnemigo[index] === "AGUA"){
+            victoriasJugador ++
             indexAmbosOponetes(index,index)
             crearMensaje("GANASTE")
+            spanVidasJugador.innerHTML= victoriasJugador
         }else if(ataqueJugador[index] === "AGUA" && ataqueEnemigo[index]=== "TIERRA"){
+            victoriasJugador ++
             indexAmbosOponetes(index,index)
             crearMensaje("GANASTE")
+            spanVidasJugador.innerHTML= victoriasJugador
         }else{
+            victoriasEnemigo ++
             indexAmbosOponetes(index,index)
             crearMensaje("PEDISTE")
+            spanVidasEnemigo.innerHTML= victoriasEnemigo
         }
         
     }
-    
+    revisarVidas()
     return estado
 }
 
 function revisarVidas(){
-    if(contadorVidasJugador==0){
+    if(victoriasJugador > victoriasEnemigo){
         crearMensajeFinal('¡FELICITACIONES PEDISTE! 😢☹😢')
-    }else if(contadorVidasEnemigo==0){
+    }else if(victoriasJugador < victoriasEnemigo){
         crearMensajeFinal('¡FELICITACIONES GANASTE! 🎉🎈🎂')
     }else {
-
+        crearMensajeFinal('¡EMPATE! 🎉🎈🎂')
     }
     
 }
