@@ -28,6 +28,9 @@ let botonFuego
 let botonAgua
 let botonTierra
 
+let indexAtaqueJuagador
+let indexAtaqueEnemigo
+
 let contadorVidasEnemigo = 3
 let contadorVidasJugador =3
 
@@ -196,56 +199,60 @@ function ataqueAletorioEnemigo(){
         ataqueEnemigo.push('TIERRA')
     }
     console.log(ataqueEnemigo)
-    crearMensaje()
+    //screarMensaje()
+    iniciarPelea()
+}
+function iniciarPelea(){
+    if(ataqueJugador.length===5){   
+        combate()
+    }
 }
 
-function crearMensaje(){
+function crearMensaje(resultado){
 
     let nuevoAtaqueJugador = document.createElement('p')
     let nuevoAtaqueEnemigo = document.createElement('p')
-    let notificacion = document.createElement('p')
+    
 
-    sectionMensajes.innerHTML = combate()
-    nuevoAtaqueJugador.innerHTML = ataqueJugador
-    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
+    sectionMensajes.innerHTML = resultado
+    nuevoAtaqueJugador.innerHTML = indexAtaqueJuagador
+    nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
 
    
     ataquesDelJugador.appendChild(nuevoAtaqueJugador)
     ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 
-    revisarVidas()
+    //revisarVidas()
 }
 
+function indexAmbosOponetes(jugador, enemigo){
+    indexAtaqueJuagador = ataqueJugador[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
+}
 function combate(){
     let estado = ''
     let spanVidasJugador = document.getElementById('vidas-jugador')
     let spanVidasEnemigo = document.getElementById('vidas-enemigo')
-
-    if(ataqueJugador == ataqueEnemigo){
-        estado = 'GANASTE'
-        contadorVidasEnemigo--
-        spanVidasEnemigo.innerHTML = contadorVidasEnemigo
-    } else if(ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA'){
-        estado = 'GANASTE'
-        contadorVidasEnemigo--
-        spanVidasEnemigo.innerHTML = contadorVidasEnemigo
-
-    } else if(ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO'){
-        estado = 'GANASTE'
-        contadorVidasEnemigo--
-        spanVidasEnemigo.innerHTML = contadorVidasEnemigo
-
-    } else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA'){
-        estado = 'GANASTE'
-        contadorVidasEnemigo--
-        spanVidasEnemigo.innerHTML = contadorVidasEnemigo
-
-    } else{
-        estado = 'PEDISTE'
-        contadorVidasJugador--
-        spanVidasJugador.innerHTML = contadorVidasJugador
+    for (let index = 0; index < ataqueJugador.length; index++) {
+        console.log(ataqueJugador[index] + " "+ ataqueEnemigo[index])
+        if(ataqueJugador[index] == ataqueEnemigo[index]){
+            indexAmbosOponetes(index,index)
+            crearMensaje("EMPATE")
+        }else if(ataqueJugador[index] === "TIERRA" && ataqueEnemigo[index]=== "FUEGO"){
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE")
+        }else if(ataqueJugador[index] === "FUEGO" && ataqueEnemigo[index] === "AGUA"){
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE")
+        }else if(ataqueJugador[index] === "AGUA" && ataqueEnemigo[index]=== "TIERRA"){
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE")
+        }else{
+            indexAmbosOponetes(index,index)
+            crearMensaje("PEDISTE")
+        }
+        
     }
-
     
     return estado
 }
