@@ -11,7 +11,8 @@ const sectionSelecionarMascota = document.getElementById('selecciona-mascota')
 const spanMascotaEnemigo =document.getElementById('mascota-enemigo')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorAtaques = document.getElementById('contenedor-ataques')
-
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
 
 let mokepones = []
 let botones = []
@@ -36,6 +37,8 @@ let victoriasEnemigo = 0
 
 let contadorVidasEnemigo = 3
 let contadorVidasJugador =3
+
+let lienzo = mapa.getContext("2d")
 
 class Mokepon{
     constructor(nombre, foto,vida){
@@ -79,7 +82,7 @@ console.log(mokepones.nombre)
 function iniciarJuego(){
     
     sectionSelecionarAtaque.style.display = 'none'
-    
+    sectionVerMapa.style.display = 'none'
 
     mokepones.forEach((mokepon) =>{
         opcinesMokepones = `<input type="radio" name="mascota" id=${mokepon.nombre} />
@@ -106,8 +109,19 @@ function iniciarJuego(){
 
 
 function selecionarMascotaJugador(){
-    sectionSelecionarAtaque.style.display = 'flex'
+    //sectionSelecionarAtaque.style.display = 'flex'
     sectionSelecionarMascota.style.display = 'none'
+    sectionVerMapa.style.display = 'flex'
+    let imagenDeCapuipepo = new Image()
+    imagenDeCapuipepo.src = hipodoge.foto 
+    lienzo.drawImage(
+        imagenDeCapuipepo, 
+        20, 
+        40, 
+        50, 
+        50
+        )
+   
 
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
