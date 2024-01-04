@@ -121,8 +121,7 @@ function selecionarMascotaJugador(){
     //sectionSelecionarAtaque.style.display = 'flex'
     sectionSelecionarMascota.style.display = 'none'
     sectionVerMapa.style.display = 'flex'
-    intervalo = setInterval(pintarPersonaje,50)
-  
+    iniciarMapa()
 
 
     if(inputHipodoge.checked){
@@ -141,6 +140,12 @@ function selecionarMascotaJugador(){
    
     extraerAtaques(mascostaJugador)
     selecionarMascotaEnemigo()
+}
+
+function iniciarMapa(){
+    intervalo = setInterval(pintarPersonaje,50)
+    window.addEventListener("keydown", sePresecionoTecla)
+    window.addEventListener("keyup", detenerMovimiento)
 }
 
 function extraerAtaques(mascostaJugador){
@@ -342,6 +347,26 @@ function moverIzquierda(){
 function detenerMovimiento(){
     capipepo.velocidadX = 0
     capipepo.velocidadY = 0
+}
+
+function sePresecionoTecla(event){
+    switch(event.key){
+        case 'ArrowUp':
+            moverArriba()
+        break    
+        case 'ArrowDown':
+            moverAbajo()
+        break 
+        case 'ArrowLeft':
+            moverIzquierda()
+        break 
+        case 'ArrowRight':
+            moverDerecha()
+        break 
+        default:
+        break
+    }
+
 }
 function reiniciarJuego(){
     location.reload()
