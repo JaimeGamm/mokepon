@@ -46,6 +46,12 @@ class Mokepon{
         this.foto =foto
         this.vida =vida
         this.ataques =[]
+        this.x = 20
+        this.y = 30
+        this.alto = 80
+        this.ancho = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 }
 
@@ -112,16 +118,8 @@ function selecionarMascotaJugador(){
     //sectionSelecionarAtaque.style.display = 'flex'
     sectionSelecionarMascota.style.display = 'none'
     sectionVerMapa.style.display = 'flex'
-    let imagenDeCapuipepo = new Image()
-    imagenDeCapuipepo.src = hipodoge.foto 
-    lienzo.drawImage(
-        imagenDeCapuipepo, 
-        20, 
-        40, 
-        50, 
-        50
-        )
-   
+  
+
 
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -299,6 +297,24 @@ function revisarVidas(){
 function crearMensajeFinal(resultador){
     sectionMensajes.innerHTML = resultador
     sectionSelecionarReiniciar.style.display = 'block'
+}
+
+function pintarPersonaje(){
+    lienzo.clearRect(0,0,mapa.width,mapa.height)
+    lienzo.drawImage(
+        capipepo.mapaFoto, 
+        capipepo.x, 
+        capipepo.y, 
+        capipepo.ancho, 
+        capipepo.alto
+        )
+   
+}
+
+function moverCapipepo(){
+    capipepo.x = capipepo.x + 5
+    pintarPersonaje()
+    capipepo.y = capipepo.y + 5
 }
 
 function reiniciarJuego(){
