@@ -46,25 +46,39 @@ let mapaBackground = new Image()
 mapaBackground.src = './assets/mokemap-ca51ea18-7ac8-492f-be96-6181d766a99d.png';
 
 class Mokepon{
-    constructor(nombre, foto,vida){
+    constructor(nombre, foto,vida,fotoMapa,x=20,y=30){
         this.nombre = nombre
         this.foto =foto
         this.vida =vida
         this.ataques =[]
-        this.x = 20
-        this.y = 30
-        this.alto = 80
-        this.ancho = 80
+        this.x = x
+        this.y = y
+        this.alto = 60
+        this.ancho = 60
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
     }
+
+    pintarMascota() {
+        lienzo.drawImage(
+            this.mapaFoto, 
+            this.x, 
+            this.y, 
+            this.ancho, 
+            this.alto
+            )
+    }
 }
 
-let hipodoge = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3)
-let capipepo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3)
-let ratigueya = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3)
+let hipodoge = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3,'./assets/y3s277X.png')
+let capipepo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3, './assets/ratigueya-3d52f361-7036-4ff7-bf61-c4b7e49875ff.png')
+let ratigueya = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3, './assets/LWkctTb.png')
+
+let hipodogeEnemigo = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3,'./assets/y3s277X.png',250 , 20)
+let capipepoEnemigo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3, './assets/ratigueya-3d52f361-7036-4ff7-bf61-c4b7e49875ff.png',150, 130)
+let ratigueyaEnemigo = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3, './assets/LWkctTb.png', 250, 160)
 
 hipodoge.ataques.push(
     {nombre: '💧', id:'boton-agua'},
@@ -324,13 +338,10 @@ function pintarCanvas(){
         mapa.width,
         mapa.height
     )
-    lienzo.drawImage(
-        mascostaJugadorObjeto.mapaFoto, 
-        mascostaJugadorObjeto.x, 
-        mascostaJugadorObjeto.y, 
-        mascostaJugadorObjeto.ancho, 
-        mascostaJugadorObjeto.alto
-        )
+    mascostaJugadorObjeto.pintarMascota()
+    hipodogeEnemigo.pintarMascota()
+    ratigueyaEnemigo.pintarMascota()
+    capipepoEnemigo.pintarMascota()
    
 }
 
