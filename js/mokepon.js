@@ -59,8 +59,8 @@ class Mokepon{
         this.foto =foto
         this.vida =vida
         this.ataques =[]
-        this.alto = 60
-        this.ancho = 60
+        this.alto = 40
+        this.ancho = 40
         this.x = aletorio(0, mapa.width-this.ancho)
         this.y = aletorio(0, mapa.height-this.alto)
         this.mapaFoto = new Image()
