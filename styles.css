@@ -129,9 +129,7 @@ p{
     justify-content: center;
 }
 
-#mapa{
-    border: 2px solid white; 
-}
+
 
 @media(max-width: 700px){
     .tarjetas, .tarjeta-ataques{

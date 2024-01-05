@@ -13,6 +13,7 @@ const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorAtaques = document.getElementById('contenedor-ataques')
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
+const anchoMaximoMapa = 350
 
 let mokepones = []
 let botones = []
@@ -39,22 +40,29 @@ let contadorVidasEnemigo = 3
 let contadorVidasJugador =3
 
 let mascostaJugadorObjeto
-
+let alturaBuscada
+let anchoMapa = window.innerWidth -  200 
+alturaBuscada = anchoMapa * 600 / 1000
+mapa.width = anchoMapa
+mapa.height = alturaBuscada
 let lienzo = mapa.getContext("2d")
 let intervalo 
 let mapaBackground = new Image()
 mapaBackground.src = './assets/mokemap-ca51ea18-7ac8-492f-be96-6181d766a99d.png';
+if (anchoMapa > anchoMaximoMapa) {
+    anchoMapa = anchoMaximoMapa - 20
+}
 
 class Mokepon{
-    constructor(nombre, foto,vida,fotoMapa,x=20,y=30){
+    constructor(nombre, foto,vida,fotoMapa){
         this.nombre = nombre
         this.foto =foto
         this.vida =vida
         this.ataques =[]
-        this.x = x
-        this.y = y
         this.alto = 60
         this.ancho = 60
+        this.x = aletorio(0, mapa.width-this.ancho)
+        this.y = aletorio(0, mapa.height-this.alto)
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
@@ -70,15 +78,16 @@ class Mokepon{
             this.alto
             )
     }
+
 }
 
 let hipodoge = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3,'./assets/y3s277X.png')
 let capipepo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3, './assets/ratigueya-3d52f361-7036-4ff7-bf61-c4b7e49875ff.png')
 let ratigueya = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3, './assets/LWkctTb.png')
 
-let hipodogeEnemigo = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3,'./assets/y3s277X.png',250 , 20)
-let capipepoEnemigo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3, './assets/ratigueya-3d52f361-7036-4ff7-bf61-c4b7e49875ff.png',150, 130)
-let ratigueyaEnemigo = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3, './assets/LWkctTb.png', 250, 160)
+let hipodogeEnemigo = new Mokepon('Hipodoge','./assets/027-sandshrew.png', 3,'./assets/y3s277X.png')
+let capipepoEnemigo = new Mokepon('Capipepo','./assets/231e017da27c5e4c2afecab2c441720a.jpg', 3, './assets/ratigueya-3d52f361-7036-4ff7-bf61-c4b7e49875ff.png')
+let ratigueyaEnemigo = new Mokepon('Ratigueya','./assets/9b70c1edf68aabc95a1fda3d7ffafde8.jpg', 3, './assets/LWkctTb.png')
 
 hipodoge.ataques.push(
     {nombre: '💧', id:'boton-agua'},
@@ -183,8 +192,7 @@ function selecionarMascotaJugador(){
 }
 
 function iniciarMapa(){
-    mapa.width = 320
-    mapa.height = 240
+
     mascostaJugadorObjeto = obtenerObjetoMascota()
     intervalo = setInterval(pintarCanvas,50)
     window.addEventListener("keydown", sePresecionoTecla)
