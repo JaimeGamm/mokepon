@@ -88,6 +88,14 @@ hipodoge.ataques.push(
     {nombre: '🔥', id:'boton-fuego'}
 )
 
+hipodogeEnemigo.ataques.push(
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '🗻', id:'boton-tierra'},
+    {nombre: '🔥', id:'boton-fuego'}
+)
+
 capipepo.ataques.push(
     {nombre: '🗻', id:'boton-tierra'},
     {nombre: '🗻', id:'boton-tierra'},
@@ -96,7 +104,23 @@ capipepo.ataques.push(
     {nombre: '🔥', id:'boton-fuego'}
 )
 
+capipepoEnemigo.ataques.push(
+    {nombre: '🗻', id:'boton-tierra'},
+    {nombre: '🗻', id:'boton-tierra'},
+    {nombre: '🗻', id:'boton-tierra'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '🔥', id:'boton-fuego'}
+)
+
 ratigueya.ataques.push(
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '🗻', id:'boton-tierra'},
+    {nombre: '🔥', id:'boton-fuego'}
+)
+
+ratigueyaEnemigo.ataques.push(
     {nombre: '🔥', id:'boton-fuego'},
     {nombre: '🔥', id:'boton-fuego'},
     {nombre: '💧', id:'boton-agua'},
@@ -155,7 +179,7 @@ function selecionarMascotaJugador(){
     extraerAtaques(mascostaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    selecionarMascotaEnemigo()
+    
 }
 
 function iniciarMapa(){
@@ -222,10 +246,9 @@ function secuenciaAtaque(){
     
 }    
 
-function selecionarMascotaEnemigo(){
-    let mascotaAletorio = aletorio(0, mokepones.length-1)   
-    spanMascotaEnemigo.innerHTML = mokepones[mascotaAletorio].nombre
-    ataquesMokeponEnemigo = mokepones[mascotaAletorio].ataques
+function selecionarMascotaEnemigo(enemigo){
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
+    ataquesMokeponEnemigo = enemigo.ataques
     secuenciaAtaque()
 }
 
@@ -342,6 +365,12 @@ function pintarCanvas(){
     hipodogeEnemigo.pintarMascota()
     ratigueyaEnemigo.pintarMascota()
     capipepoEnemigo.pintarMascota()
+
+    if (mascostaJugadorObjeto.velocidadX !==0 || mascostaJugadorObjeto.velocidadY !==0) {
+        revisarColision(hipodogeEnemigo)
+        revisarColision(ratigueyaEnemigo)
+        revisarColision(capipepoEnemigo)
+    }
    
 }
 
@@ -400,6 +429,33 @@ function obtenerObjetoMascota(){
         }     
     }
 }
+
+function revisarColision(enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMascota = mascostaJugadorObjeto.y
+    const abajoMascota = mascostaJugadorObjeto.y + mascostaJugadorObjeto.alto
+    const derechaMascota = mascostaJugadorObjeto.x + mascostaJugadorObjeto.ancho
+    const izquierdaMascota = mascostaJugadorObjeto.x
+
+    if (abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo) {
+        return
+        
+    }
+    detenerMovimiento()
+    clearInterval(intervalo)
+    sectionSelecionarAtaque.style.display= 'flex'
+    sectionVerMapa.style.display = 'none'
+    selecionarMascotaEnemigo(enemigo)
+    //alert("hay una colision" + enemigo.nombre)
+}
+
 function reiniciarJuego(){
     location.reload()
 }
