@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JaimeGamm/mokepon/issues"
   },
-  "homepage": "https://github.com/JaimeGamm/mokepon#readme"
+  "homepage": "https://github.com/JaimeGamm/mokepon#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
