@@ -1,0 +1,19 @@
+{
+  "name": "mokepon",
+  "version": "1.0.0",
+  "description": "juego de mokepon version cliente servidor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaimeGamm/mokepon.git"
+  },
+  "author": "jaime saenz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaimeGamm/mokepon/issues"
+  },
+  "homepage": "https://github.com/JaimeGamm/mokepon#readme"
+}
