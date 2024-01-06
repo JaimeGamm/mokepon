@@ -165,8 +165,21 @@ function iniciarJuego(){
     botonMascotaJugador.addEventListener('click',selecionarMascotaJugador)    
 
     botonReiniciar.addEventListener('click', reiniciarJuego)
+
+    unirAlJuego()
 }
 
+function unirAlJuego(){
+    fetch("http://localhost:8000/unirse")
+        .then(function(res){
+            if(res.ok){
+                res.text()
+                    .then(function(respuesta){
+                        console.log(respuesta)
+                    })
+            }
+        })
+}
 
 function selecionarMascotaJugador(){
     //sectionSelecionarAtaque.style.display = 'flex'
