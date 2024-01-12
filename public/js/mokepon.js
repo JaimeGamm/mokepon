@@ -155,7 +155,7 @@ function iniciarJuego(){
 }
 
 function unirAlJuego(){
-    fetch("http://localhost:8000/unirse")
+    fetch("http://localhost:8080/unirse")
         .then(function(res){
             if(res.ok){
                 res.text()
@@ -170,7 +170,7 @@ function unirAlJuego(){
 
 function selecionarMascotaJugador(){
     //sectionSelecionarAtaque.style.display = 'flex'
-    sectionSelecionarMascota.style.display = 'none'
+    
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascostaJugador = inputHipodoge.id       
@@ -183,8 +183,10 @@ function selecionarMascotaJugador(){
         mascostaJugador = inputRatigueya.id
     } else {
         alert('Tiene que selecionar mascota')
+        return
     }
-   selecionaarMokepon(mascostaJugador)
+    sectionSelecionarMascota.style.display = 'none'
+    selecionaarMokepon(mascostaJugador)
     extraerAtaques(mascostaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
@@ -192,7 +194,7 @@ function selecionarMascotaJugador(){
 }
 
 function selecionaarMokepon(mascostaJugador){
-    fetch(`http://localhost:8000/mokepon/${jugadorId}`,
+    fetch(`http://localhost:8080/mokepon/${jugadorId}`,
     {method: "post",
     headers:{
         "Content-type": "application/json"
@@ -284,7 +286,7 @@ function secuenciaAtaque(){
 
 function enviarAtaques(){
     console.log("enviar ataques "+ ataqueJugador+ " " + jugadorId)
-    fetch(`http://localhost:8000/mokepon/${jugadorId}/ataques`,
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,
     {  method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -299,7 +301,7 @@ function enviarAtaques(){
 
 
 function obtenerAtaques(){
-    fetch(`http://localhost:8000/mokepon/${enemigoId}/ataques`)
+    fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
         .then(function (res) {
             if (res.ok){
                 res.json()
@@ -447,7 +449,7 @@ function pintarCanvas(){
     })   
 }
 function enviarPosicion2(x,y){
-    fetch(`http://localhost:8000/mokepon/${jugadorId}/posicion`,{
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`,{
         method: "post",
         headers:{
             "Content-type": "application/json"
@@ -489,7 +491,7 @@ function enviarPosicion2(x,y){
     })
 }
 function enviarPosicion(x, y) {
-    fetch(`http://localhost:8000/mokepon/${jugadorId}/posicion`, {
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type" : "application/json"

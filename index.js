@@ -3,6 +3,7 @@ const cors = require("cors")
 const jugadores = []
 
 const app = express()
+app.use(express.static('public'))
 app.use(cors())
 app.use(express.json())
 
@@ -95,6 +96,6 @@ app.get("/mokepon/:jugadorId/ataques", (req, res) => {
     })
     console.log(jugador.ataques)
 })
-app.listen(8000, ()=>{
+app.listen(8080, ()=>{
     console.log("mi primer serrvidor con node js")
 })
