@@ -1,0 +1,1 @@
+comando para ejecutar el juego: node .\index.js  
